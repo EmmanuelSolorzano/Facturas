@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import httpClient from "../httpClient";
 import NavBar from "../components/NavBar";
 
-const RegisterPage: React.FC = () => {
+export default function RegisterPage() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -69,5 +69,3 @@ const RegisterPage: React.FC = () => {
     </div>
   );
 };
-
-export default RegisterPage;

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import httpClient from "../httpClient";
 import NavBar from "../components/NavBar";
 
-const LoginPage: React.FC = () => {
+export default function LoginPage() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -24,58 +24,72 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-900">
+    <>
       <NavBar />
-    <div className="w-full max-w-md mx-2">
-    <div className="bg-gray-800 shadow-md rounded px-8 py-6">
-      <h2 className="text-2xl font-bold mb-6 text-white">Login</h2>
-      <form>
-        <div className="mb-4">
-          <label htmlFor="username" className="block text-white font-bold mb-2">
-            Username
-          </label>
-          <input
-            id="username"
-            type="text"
-            className="appearance-none border rounded w-full py-2 px-3 text-white bg-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Enter your username"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+          <img
+            className="mx-auto h-10 w-auto"
+            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            alt="Your Company"
           />
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            Sistema de cuentas por pagar y cobrar
+          </h2>
         </div>
-        <div className="mb-4">
-          <label htmlFor="password" className="block text-white font-bold mb-2">
-            Password
-          </label>
-          <input
-            id="password"
-            type="password"
-            className="appearance-none border rounded w-full py-2 px-3 text-white bg-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          <form className="space-y-6" action="#" method="POST">
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                Correo
+              </label>
+              <div className="mt-2">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-center justify-between">
+                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                  Contraseña
+                </label>
+              </div>
+              <div className="mt-2">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="button"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                onClick={() => logInUser()}
+              >
+                Iniciar sesión
+              </button>
+            </div>
+          </form>
         </div>
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-          <button
-            className="bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4 md:mb-0"
-            type="button"
-            onClick={() => logInUser()}
-          >
-            Sign In
-          </button>
-          <a
-            className="text-white hover:text-white"
-            href="#"  
-          >
-            Forgot Password?
-          </a>
-        </div>
-      </form>
-    </div>
-    </div>
-    </div>
+      </div>
+    </>
   );
 };
-
-export default LoginPage;
