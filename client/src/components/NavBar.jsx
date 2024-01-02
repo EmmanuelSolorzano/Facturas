@@ -25,7 +25,7 @@ export default function NavBar() {
                                     />
                                 </Link>
                                 <Link to="/" className="text-white text-2xl font-bold ml-3">
-                                    <p>Inicio</p>
+                                    <p className="">Inicio</p>
                                 </Link>
                             </div>
                         </div>

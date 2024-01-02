@@ -6,7 +6,7 @@ import { IoMdArrowDropdown } from "react-icons/io";
 
 const ReceptorDropdown = (props: any) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(props.default === 'Cliente' ? 'Cliente (por cobrar)' : 'Proveedor (por pagar)');
+  const [selectedItem, setSelectedItem] = useState(props.default === 'Cliente' ? 'Cliente (por cobrar)' : props.default === 'Proveedor' ? 'Proveedor (por pagar)' : 'Seleccionar');
   const options = ['Cliente (por cobrar)', 'Proveedor (por pagar)'];
 
   const toggleDropdown = () => {
