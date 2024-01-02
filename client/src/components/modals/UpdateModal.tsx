@@ -98,7 +98,7 @@ const UpdateModal = (props: any) =>  {
 
   const handleNumeroFacturaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
-    const regex = /^(?=[a-zA-Z0-9])(?!.*\s{2,})[a-zA-Z0-9 ]{1,24}$/;
+    const regex = /^[a-zA-Z0-9]{1,24}$/;
     setNumeroFacturaPost(inputValue);
     if (regex.test(inputValue)) {
       setNumeroFacturaError(null);
