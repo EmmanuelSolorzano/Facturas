@@ -35,6 +35,8 @@ const UpdateModal = (props: any) =>  {
   const initialPorcentajeIVA = porcentajeIVA;
   const initialTipoCuenta = tipoCuenta;
 
+  const [importeFacturaText, setImporteFacturaText] = useState<string>(importeFactura);
+  const [porcentajeIVAText, setPorcentajeIVAText] = useState<string>(porcentajeIVA);
 
   const [numeroFacturaPost, setNumeroFacturaPost] = useState<string>(numeroFactura);
   const [receptorPost, setReceptorPost] = useState<string>(receptor);
@@ -121,6 +123,7 @@ const UpdateModal = (props: any) =>  {
   const handleImporteFacturaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
     const regex = /^\d{1,8}(\.\d{1,4})?$/;
+    setImporteFacturaText(inputValue);
     if (regex.test(inputValue)) {
       setImporteFacturaError(null);
       setImporteFacturaPost(parseFloat(inputValue));
@@ -130,8 +133,10 @@ const UpdateModal = (props: any) =>  {
   }
 
   const handlePorcentajeIVAChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value)
     const inputValue = e.target.value;
     const regex = /^\d{1,2}(\.\d{1,4})?$/;
+    setPorcentajeIVAText(inputValue);
     if (regex.test(inputValue)) {
       setPorcentajeIVAError(null);
       setPorcentajeIVAPost(parseFloat(inputValue));
@@ -317,7 +322,7 @@ const UpdateModal = (props: any) =>  {
                                     <input 
                                       type="text" 
                                       name="importe" 
-                                      value={importeFacturaPost}
+                                      value={importeFacturaText}
                                       id="importe" 
                                       className={`block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${importeFacturaError ? 'ring-red-300' : initialImporteFactura !== importeFacturaPost ? 'ring-yellow-600 ring-2' : 'focus:ring-indigo-600'} sm:text-sm sm:leading-6 `}
                                       placeholder="0.00"
@@ -342,7 +347,7 @@ const UpdateModal = (props: any) =>  {
                                     <input
                                       type="text"
                                       name="iva"
-                                      value={porcentajeIVAPost}
+                                      value={porcentajeIVAText}
                                       id="iva"
                                       className={`block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${porcentajeIVAError ? 'ring-red-300' : initialPorcentajeIVA !== porcentajeIVAPost ? 'ring-yellow-600 ring-2' : 'focus:ring-indigo-600'} sm:text-sm sm:leading-6 `}
                                       onChange={handlePorcentajeIVAChange}
