@@ -119,6 +119,215 @@ const data = [
         "porcentajeIVA": 20,
         "fecha": "2021-10",
         "tipoCuenta": "Cliente"
+    },
+    {
+        "id": "12",
+        "numeroFactura": "F2023012",
+        "receptor": "TechSolutions",
+        "nombreProveedor": "Proveedor XYZ",
+        "creador": "Usuario 12",
+        "importeFactura": 1200.00,
+        "porcentajeIVA": 15,
+        "fecha": "2021-11-02",
+        "tipoCuenta": "Proveedor"
+    },
+    {
+        "id": "13",
+        "numeroFactura": "F2023013",
+        "receptor": "InnovateCorp",
+        "nombreProveedor": "Proveedor PQR",
+        "creador": "Usuario 13",
+        "importeFactura": 1800.00,
+        "porcentajeIVA": 22,
+        "fecha": "2021-11-05",
+        "tipoCuenta": "Cliente"
+    },
+    {
+        "id": "14",
+        "numeroFactura": "F2023014",
+        "receptor": "Globex",
+        "nombreProveedor": "Proveedor GHI",
+        "creador": "Usuario 14",
+        "importeFactura": 1500.00,
+        "porcentajeIVA": 17,
+        "fecha": "2021-11-08",
+        "tipoCuenta": "Proveedor"
+    },
+    {
+        "id": "15",
+        "numeroFactura": "F2023015",
+        "receptor": "InnoTech",
+        "nombreProveedor": "Proveedor JKL",
+        "creador": "Usuario 15",
+        "importeFactura": 2200.00,
+        "porcentajeIVA": 19,
+        "fecha": "2021-11-12",
+        "tipoCuenta": "Cliente"
+    },
+    {
+        "id": "16",
+        "numeroFactura": "F2023016",
+        "receptor": "InnoTech",
+        "nombreProveedor": "Proveedor XYZ",
+        "creador": "Usuario 16",
+        "importeFactura": 2500.00,
+        "porcentajeIVA": 21,
+        "fecha": "2021-11-15",
+        "tipoCuenta": "Cliente"
+    },
+    {
+        "id": "17",
+        "numeroFactura": "F2023017",
+        "receptor": "Globex",
+        "nombreProveedor": "Proveedor ABC",
+        "creador": "Usuario 17",
+        "importeFactura": 1700.00,
+        "porcentajeIVA": 18,
+        "fecha": "2021-11-18",
+        "tipoCuenta": "Proveedor"
+    },
+    {
+        "id": "18",
+        "numeroFactura": "F2023018",
+        "receptor": "InnovateCorp",
+        "nombreProveedor": "Proveedor LMN",
+        "creador": "Usuario 18",
+        "importeFactura": 1900.00,
+        "porcentajeIVA": 20,
+        "fecha": "2021-11-22",
+        "tipoCuenta": "Cliente"
+    },
+    {
+        "id": "19",
+        "numeroFactura": "F2023019",
+        "receptor": "TechSolutions",
+        "nombreProveedor": "Proveedor PQR",
+        "creador": "Usuario 19",
+        "importeFactura": 1400.00,
+        "porcentajeIVA": 16,
+        "fecha": "2021-11-25",
+        "tipoCuenta": "Proveedor"
+    },
+    {
+        "id": "20",
+        "numeroFactura": "F2023020",
+        "receptor": "Fraccionaria",
+        "nombreProveedor": "Proveedor GHI",
+        "creador": "Usuario 20",
+        "importeFactura": 2000.00,
+        "porcentajeIVA": 19,
+        "fecha": "2021-11-28",
+        "tipoCuenta": "Cliente"
+    },
+    {
+        "id": "21",
+        "numeroFactura": "F2023021",
+        "receptor": "Globex",
+        "nombreProveedor": "Proveedor XYZ",
+        "creador": "Usuario 21",
+        "importeFactura": 1800.00,
+        "porcentajeIVA": 17,
+        "fecha": "2021-12-01",
+        "tipoCuenta": "Proveedor"
+    },
+    {
+        "id": "22",
+        "numeroFactura": "F2023022",
+        "receptor": "InnoTech",
+        "nombreProveedor": "Proveedor ABC",
+        "creador": "Usuario 22",
+        "importeFactura": 2200.00,
+        "porcentajeIVA": 19,
+        "fecha": "2021-12-04",
+        "tipoCuenta": "Cliente"
+    },
+    {
+        "id": "23",
+        "numeroFactura": "F2023023",
+        "receptor": "Fraccionaria",
+        "nombreProveedor": "Proveedor LMN",
+        "creador": "Usuario 23",
+        "importeFactura": 1600.00,
+        "porcentajeIVA": 18,
+        "fecha": "2021-12-07",
+        "tipoCuenta": "Cliente"
+    },
+    {
+        "id": "24",
+        "numeroFactura": "F2023024",
+        "receptor": "TechSolutions",
+        "nombreProveedor": "Proveedor GHI",
+        "creador": "Usuario 24",
+        "importeFactura": 1900.00,
+        "porcentajeIVA": 20,
+        "fecha": "2021-12-10",
+        "tipoCuenta": "Proveedor"
+    },
+    {
+        "id": "25",
+        "numeroFactura": "F2023025",
+        "receptor": "InnovateCorp",
+        "nombreProveedor": "Proveedor PQR",
+        "creador": "Usuario 25",
+        "importeFactura": 2000.00,
+        "porcentajeIVA": 21,
+        "fecha": "2021-12-13",
+        "tipoCuenta": "Cliente"
+    },
+    {
+        "id": "26",
+        "numeroFactura": "F2023026",
+        "receptor": "Globex",
+        "nombreProveedor": "Proveedor XYZ",
+        "creador": "Usuario 26",
+        "importeFactura": 2100.00,
+        "porcentajeIVA": 22,
+        "fecha": "2021-12-16",
+        "tipoCuenta": "Proveedor"
+    },
+    {
+        "id": "27",
+        "numeroFactura": "F2023027",
+        "receptor": "InnoTech",
+        "nombreProveedor": "Proveedor ABC",
+        "creador": "Usuario 27",
+        "importeFactura": 2300.00,
+        "porcentajeIVA": 18,
+        "fecha": "2021-12-19",
+        "tipoCuenta": "Cliente"
+    },
+    {
+        "id": "28",
+        "numeroFactura": "F2023028",
+        "receptor": "Fraccionaria",
+        "nombreProveedor": "Proveedor LMN",
+        "creador": "Usuario 28",
+        "importeFactura": 1700.00,
+        "porcentajeIVA": 19,
+        "fecha": "2021-12-22",
+        "tipoCuenta": "Proveedor"
+    },
+    {
+        "id": "29",
+        "numeroFactura": "F2023029",
+        "receptor": "TechSolutions",
+        "nombreProveedor": "Proveedor GHI",
+        "creador": "Usuario 29",
+        "importeFactura": 2000.00,
+        "porcentajeIVA": 20,
+        "fecha": "2021-12-25",
+        "tipoCuenta": "Cliente"
+    },
+    {
+        "id": "30",
+        "numeroFactura": "F2023030",
+        "receptor": "InnovateCorp",
+        "nombreProveedor": "Proveedor PQR",
+        "creador": "Usuario 30",
+        "importeFactura": 1800.00,
+        "porcentajeIVA": 21,
+        "fecha": "2021-12-28",
+        "tipoCuenta": "Proveedor"
     }
 ];
 

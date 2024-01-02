@@ -127,12 +127,11 @@ export default function LandingPage() {
       </div>
       
       {totalPages > 1 &&
-      <div className="hidden sm:flex sm:flex-1 sm:items-center justify-center mb-6">
+      <div className="hidden sm:flex sm:flex-1 sm:items-center justify-center mb-8">
       <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm " aria-label="Pagination">
             {currentPage > 1 &&
             <a
-              href="#"
-              className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              className="relative cursor-pointer inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
               onClick={() => handleClick(currentPage - 1)}
             >
               <span className="sr-only">Previous</span>
@@ -141,9 +140,8 @@ export default function LandingPage() {
             }
             {Array.from({ length: totalPages }, (_, index) => (
               <a
-                  href="#"
                   key={index}
-                  className={`${currentPage === index + 1 ? 'relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' : 'relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0'}`}
+                  className={`${currentPage === index + 1 ? 'relative cursor-pointer z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' : 'relative cursor-pointer inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0'}`}
                   onClick={() => handleClick(index + 1)}
               >
                   {index}
@@ -151,8 +149,7 @@ export default function LandingPage() {
             ))}
             {currentPage < totalPages &&
             <a
-              href="#"
-              className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              className="relative cursor-pointer inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
               onClick={() => handleClick(currentPage + 1)}
             >
               <span className="sr-only">Next</span>
