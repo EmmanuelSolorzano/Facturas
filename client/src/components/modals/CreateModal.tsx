@@ -6,6 +6,22 @@ import ReceptorDropdown from './utils/ReceptorDropdown';
 
 const CreateModal = (props: any) =>  {
 
+  const [numeroFacturaPost, setNumeroFacturaPost] = useState<string>("");
+  const [receptorPost, setReceptorPost] = useState<string>("");
+  const [nombreProveedorPost, setNombreProveedorPost] = useState<string>("");
+  const [importeFacturaPost, setImporteFacturaPost] = useState<number>(0);
+  const [porcentajeIVAPost, setPorcentajeIVAPost] = useState<number>(16);
+  const [tipoCuentaPost, setTipoCuentaPost] = useState<string>("");
+
+  function printValues() {
+    console.log("Número de factura: ", numeroFacturaPost);
+    console.log("Receptor: ", receptorPost);
+    console.log("Nombre de proveedor: " ,nombreProveedorPost);
+    console.log("Importe: ", importeFacturaPost);
+    console.log("IVA: ", porcentajeIVAPost);
+    console.log("Tipo de cuenta: ", tipoCuentaPost);
+  }
+
   const cancelButtonRef = useRef(null)
 
   return (
@@ -55,84 +71,85 @@ const CreateModal = (props: any) =>  {
 
                               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div className="sm:col-span-3">
-                                  <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
+                                  <label htmlFor="receptor" className="block text-sm font-medium leading-6 text-gray-900">
                                     Receptor
                                   </label>
                                   <div className="mt-2">
                                   <input
                                     type="text"
-                                    name="first-name"
-                                    id="first-name"
-                                    autoComplete="given-name"
+                                    name="receptor"
+                                    id="receptor"
                                     className="block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    onChange={(e) => setReceptorPost(e.target.value)}
                                   />
                                   </div>
                                 </div>
                                 <div className="sm:col-span-3">
-                                  <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
+                                  <label htmlFor="tipo" className="block text-sm font-medium leading-6 text-gray-900">
                                     Tipo de cuenta
                                   </label>
-                                  <ReceptorDropdown />
+                                  <ReceptorDropdown setTipo={setTipoCuentaPost} />
                                 </div>
 
 
                                 <div className="sm:col-span-3">
-                                  <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
+                                  <label htmlFor="numero" className="block text-sm font-medium leading-6 text-gray-900">
                                     Número de factura
                                   </label>
                                   <div className="mt-2">
                                     <input
                                       type="text"
-                                      name="first-name"
-                                      id="first-name"
-                                      autoComplete="given-name"
+                                      name="numero"
+                                      id="numero"
                                       className="block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                      onChange={(e) => setNumeroFacturaPost(e.target.value)}
                                     />
                                   </div>
                                 </div>
 
                                 <div className="sm:col-span-3">
-                                  <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
+                                  <label htmlFor="nombre" className="block text-sm font-medium leading-6 text-gray-900">
                                     Nombre proveedor/cliente
                                   </label>
                                   <div className="mt-2">
                                     <input
                                       type="text"
-                                      name="first-name"
-                                      id="first-name"
-                                      autoComplete="given-name"
+                                      name="nombre"
+                                      id="nombre"
                                       className="block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                      onChange={(e) => setNombreProveedorPost(e.target.value)}
                                     />
                                   </div>
                                 </div>
 
                                 <div className="sm:col-span-3">
-                                  <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
+                                  <label htmlFor="importe" className="block text-sm font-medium leading-6 text-gray-900">
                                     Importe ($)
                                   </label>
                                   <div className="mt-2">
                                     <input 
                                       type="text" 
-                                      name="price" 
-                                      id="price" 
+                                      name="importe" 
+                                      id="importe" 
                                       className="block w-full rounded-md border-0 py-1.5 pl-2 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
                                       placeholder="0.00"
+                                      onChange={(e) => setImporteFacturaPost(parseFloat(e.target.value))}
                                       />
                                   </div>
                                 </div>
 
                                 <div className="sm:col-span-3">
-                                  <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
+                                  <label htmlFor="iva" className="block text-sm font-medium leading-6 text-gray-900">
                                     IVA (%)
                                   </label>
                                   <div className="mt-2">
                                     <input
                                       type="text"
-                                      name="first-name"
-                                      id="first-name"
-                                      autoComplete="given-name"
+                                      name="iva"
+                                      id="iva"
                                       className="block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                       defaultValue="16"
+                                      onChange={(e) => setPorcentajeIVAPost(parseFloat(e.target.value))}
                                     />
                                   </div>
                                 </div>
@@ -142,20 +159,20 @@ const CreateModal = (props: any) =>  {
                               
                             </div>
                             <div className="col-span-full">
-                              <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
+                              <label htmlFor="pdf" className="block text-sm font-medium leading-6 text-gray-900">
                                 PDF
                               </label>
                               <div className="max-w-2xl mx-auto">
 
-                                <input className="block w-full text-sm text-white border border-indigo-600 rounded-lg cursor-pointer focus:outline-none bg-indigo-600" id="file_input" type="file" />
+                                <input className="block w-full text-sm text-white border border-indigo-600 rounded-lg cursor-pointer focus:outline-none bg-indigo-600" id="pdf" type="file" />
                               </div>
                             </div>
                             <div className="col-span-full">
-                              <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
+                              <label htmlFor="xml" className="block text-sm font-medium leading-6 text-gray-900">
                                 XML
                               </label>
                               <div className="max-w-2xl mx-auto">
-                                <input className="block w-full text-sm text-white border border-indigo-600 rounded-lg cursor-pointer focus:outline-none bg-indigo-600" id="file_input" type="file" />
+                                <input className="block w-full text-sm text-white border border-indigo-600 rounded-lg cursor-pointer focus:outline-none bg-indigo-600" id="xml" type="file" />
                               </div>
                             </div>
                             
@@ -172,7 +189,7 @@ const CreateModal = (props: any) =>  {
                   <button
                     type="button"
                     className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
-                    onClick={() => props.setShowModal(false)}
+                    onClick={() => printValues()}
                   >
                     Crear
                   </button>

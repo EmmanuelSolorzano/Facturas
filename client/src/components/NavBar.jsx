@@ -32,7 +32,7 @@ export default function NavBar() {
                     </div>
                     {location.pathname === "/" && (
                         <div className="flex">
-                           <a className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-lg font-medium" onClick={logoutUser}>Cerrar sesión</a>
+                           <a className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-lg font-medium cursor-pointer" onClick={logoutUser}>Cerrar sesión</a>
                         </div>
                     )}
                 </div>

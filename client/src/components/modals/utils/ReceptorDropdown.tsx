@@ -16,13 +16,14 @@ const ReceptorDropdown = (props: any) => {
   function handleSelectItem(item: string) {
     setSelectedItem(item);
     setIsOpen(false);
+    props.setTipo(item === 'Cliente (por cobrar)' ? 'Cliente' : 'Proveedor');
   };
 
   return (
     <div className="relative">
       <button
         type='button'
-        className="flex justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        className={`flex justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold ${props.default !== props.tipo ? 'ring-yellow-600 ring-4' : ''} leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
         onClick={toggleDropdown}
       >
         {selectedItem}

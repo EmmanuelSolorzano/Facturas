@@ -9,6 +9,7 @@ import DeleteModal from "../components/modals/DeleteModal";
 import dataArray from "./data/data";
 import { FaAngleLeft } from "react-icons/fa";
 import { FaAngleRight } from "react-icons/fa";
+import FailureModal from "../components/modals/FailureModal";
 
 export default function LandingPage() {
   const [user, setUser] = useState<User | null>(null);
@@ -40,6 +41,12 @@ export default function LandingPage() {
   const handleDeleteButtonClick = (id: any) => {
     setDeleteModalId(id);
     setShowDeleteModal(true);
+  };
+
+  //Success modal
+  const [showSuccessModal, setShowSuccessModal] = useState(true);
+  const handleSuccessButtonClick = () => {
+    setShowSuccessModal(true);
   };
 
   //Pagination
@@ -75,6 +82,7 @@ export default function LandingPage() {
 
   return (
     <div className={`bg-white min-h-screen ${!loaded ? 'hidden' : ''}`}>
+      <FailureModal showModal={showSuccessModal} setShowModal={setShowSuccessModal}/>
       <NavBar />
       <CreateModal showModal={showCreateModal} setShowModal={setShowCreateModal}/>
       <div className="container mx-auto p-8 mt-8 pl-0 pr-0">

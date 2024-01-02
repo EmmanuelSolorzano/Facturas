@@ -1,12 +1,23 @@
-import { Fragment, useRef, useState } from 'react'
+import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { MdRemoveRedEye } from "react-icons/md";
 import { IoMdCloudDownload } from "react-icons/io";
 
 
 const ReadModal = (props: any) =>  {
-  const { id, numeroFactura, receptor, nombreProveedor, creador, importeFactura, porcentajeIVA, fecha, tipoCuenta } = props;
+  const { numeroFactura, receptor, nombreProveedor, creador, importeFactura, porcentajeIVA, fecha, tipoCuenta } = props;
 
+  function descargarRegistro() {
+    console.log('Descargando registro...');
+    console.log('Número de factura: ' + numeroFactura);
+    console.log('Receptor: ' + receptor);
+    console.log('Nombre del proveedor: ' + nombreProveedor);
+    console.log('Creador: ' + creador);
+    console.log('Importe: ' + importeFactura);
+    console.log('IVA: ' + porcentajeIVA);
+    console.log('Fecha: ' + fecha);
+    console.log('Tipo de cuenta: ' + tipoCuenta);
+  }
 
   const cancelButtonRef = useRef(null)
 
@@ -162,7 +173,7 @@ const ReadModal = (props: any) =>  {
                   <button
                     type="button"
                     className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto"
-                    //onClick={() => props.setShowModal(false)}
+                    onClick={() => descargarRegistro()}
                   >
                     Descargar registro
                   </button>
