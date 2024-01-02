@@ -23,6 +23,11 @@ const CreateModal = (props: any) =>  {
 
   //REGEX Validation
   const [receptorError, setReceptorError] = useState<string | null>(null);
+  const [numeroFacturaError, setNumeroFacturaError] = useState<string | null>(null);
+  const [nombreProveedorError, setNombreProveedorError] = useState<string | null>(null);
+  const [importeFacturaError, setImporteFacturaError] = useState<string | null>(null);
+  const [porcentajeIVAError, setPorcentajeIVAError] = useState<string | null>(null);
+  const [tipoCuentaError, setTipoCuentaError] = useState<string | null>(null);
 
   const handleReceptorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
@@ -33,7 +38,6 @@ const CreateModal = (props: any) =>  {
     } else {
       setReceptorError('Ingrese caracteres válidos (mayúsculas, minúsculas, comas, puntos y números). Longitud de 3 - 24 carácteres.');
     }
-
   };
 
   const cancelButtonRef = useRef(null)
@@ -88,9 +92,12 @@ const CreateModal = (props: any) =>  {
 
                               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div className="sm:col-span-3">
-                                <label htmlFor="receptor" className="block text-sm font-medium leading-6 text-gray-900">
-                                  Receptor  <p className="mt-1 text-sm leading-6 text-red-500">*</p>
-                                </label>
+                                <div className="flex items-center">
+                                  <label htmlFor="receptor" className="block text-sm font-medium leading-6 text-gray-900 mr-1">
+                                    Receptor
+                                  </label>
+                                  <p className="mt-1 text-lg leading-6 text-red-500">*</p>
+                                </div>
                                 <div className="mt-2">
                                   <input
                                     type="text"
@@ -110,17 +117,23 @@ const CreateModal = (props: any) =>  {
                                 </div>
                                 </div>
                                 <div className="sm:col-span-3">
-                                  <label htmlFor="tipo" className="block text-sm font-medium leading-6 text-gray-900">
+                                  <div className="flex items-center">
+                                  <label htmlFor="tipo" className="block text-sm font-medium leading-6 text-gray-900 mr-1">
                                     Tipo de cuenta
                                   </label>
+                                  <p className="mt-1 text-lg leading-6 text-red-500">*</p>
+                                </div>
                                   <ReceptorDropdown setTipo={setTipoCuentaPost} />
                                 </div>
 
 
                                 <div className="sm:col-span-3">
-                                  <label htmlFor="numero" className="block text-sm font-medium leading-6 text-gray-900">
-                                    Número de factura
+                                  <div className="flex items-center">
+                                  <label htmlFor="numero" className="block text-sm font-medium leading-6 text-gray-900 mr-1">
+                                  Número de factura
                                   </label>
+                                  <p className="mt-1 text-lg leading-6 text-red-500">*</p>
+                                </div>
                                   <div className="mt-2">
                                     <input
                                       type="text"
@@ -133,9 +146,12 @@ const CreateModal = (props: any) =>  {
                                 </div>
 
                                 <div className="sm:col-span-3">
-                                  <label htmlFor="nombre" className="block text-sm font-medium leading-6 text-gray-900">
+                                  <div className="flex items-center">
+                                  <label htmlFor="nombre" className="block text-sm font-medium leading-6 text-gray-900 mr-1">
                                     Nombre proveedor/cliente
                                   </label>
+                                  <p className="mt-1 text-lg leading-6 text-red-500">*</p>
+                                </div>
                                   <div className="mt-2">
                                     <input
                                       type="text"
@@ -148,9 +164,12 @@ const CreateModal = (props: any) =>  {
                                 </div>
 
                                 <div className="sm:col-span-3">
-                                  <label htmlFor="importe" className="block text-sm font-medium leading-6 text-gray-900">
+                                  <div className="flex items-center">
+                                  <label htmlFor="importe" className="block text-sm font-medium leading-6 text-gray-900 mr-1">
                                     Importe ($)
                                   </label>
+                                  <p className="mt-1 text-lg leading-6 text-red-500">*</p>
+                                </div>
                                   <div className="mt-2">
                                     <input 
                                       type="text" 
@@ -164,9 +183,12 @@ const CreateModal = (props: any) =>  {
                                 </div>
 
                                 <div className="sm:col-span-3">
-                                  <label htmlFor="iva" className="block text-sm font-medium leading-6 text-gray-900">
+                                  <div className="flex items-center">
+                                  <label htmlFor="iva" className="block text-sm font-medium leading-6 text-gray-900 mr-1">
                                     IVA (%)
                                   </label>
+                                  <p className="mt-1 text-lg leading-6 text-red-500">*</p>
+                                </div>
                                   <div className="mt-2">
                                     <input
                                       type="text"
