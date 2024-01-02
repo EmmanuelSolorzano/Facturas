@@ -42,10 +42,6 @@ export default function LandingPage() {
     setShowDeleteModal(true);
   };
 
-  
-
-  
-
   //Pagination
   const [data, setData] = useState(dataArray);
   const itemsPerPage = 8;
@@ -64,6 +60,17 @@ export default function LandingPage() {
     setCurrentData(data.slice(startIndex, endIndex));
     setTotalPages(Math.ceil(data.length / itemsPerPage));
   }, [data]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const resp = await httpClient.get("http://127.0.0.1:5000/@me");
+        setUser(resp.data);
+      } catch (error) {
+          window.location.href = "/login";
+      }
+    })();
+  }, []);
 
   return (
     <div className="bg-white min-h-screen">
