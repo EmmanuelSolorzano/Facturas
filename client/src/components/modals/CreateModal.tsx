@@ -1,6 +1,5 @@
 import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { FaRegFilePdf } from "react-icons/fa6";
 import { IoIosAddCircle } from "react-icons/io";
 import ReceptorDropdown from './utils/ReceptorDropdown';
 
@@ -21,6 +20,21 @@ const CreateModal = (props: any) =>  {
     console.log("IVA: ", porcentajeIVAPost);
     console.log("Tipo de cuenta: ", tipoCuentaPost);
   }
+
+  //REGEX Validation
+  const [receptorError, setReceptorError] = useState<string | null>(null);
+
+  const handleReceptorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    const regex = /^[\p{L}0-9.,]{3,24}$/u;
+    setReceptorPost(inputValue);
+    if (regex.test(inputValue)) {
+      setReceptorError(null);
+    } else {
+      setReceptorError('Ingrese caracteres válidos (mayúsculas, minúsculas, comas, puntos y números). Longitud de 3 - 24 carácteres.');
+    }
+
+  };
 
   const cancelButtonRef = useRef(null)
 
@@ -68,21 +82,32 @@ const CreateModal = (props: any) =>  {
                               <p className="mt-1 text-sm leading-6 text-gray-600">
                                 Crea un nuevo registro de facturación.
                               </p>
+                              <p className="mt-2 text-xs leading-6 text-red-500">
+                                Los campos con * son obligatorios.
+                              </p>
 
                               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div className="sm:col-span-3">
-                                  <label htmlFor="receptor" className="block text-sm font-medium leading-6 text-gray-900">
-                                    Receptor
-                                  </label>
-                                  <div className="mt-2">
+                                <label htmlFor="receptor" className="block text-sm font-medium leading-6 text-gray-900">
+                                  Receptor  <p className="mt-1 text-sm leading-6 text-red-500">*</p>
+                                </label>
+                                <div className="mt-2">
                                   <input
                                     type="text"
                                     name="receptor"
                                     id="receptor"
-                                    className="block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    onChange={(e) => setReceptorPost(e.target.value)}
+                                    value={receptorPost}
+                                    className={`block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
+                                      receptorError ? 'ring-red-300' : 'ring-gray-300'
+                                    }`}
+                                    onChange={handleReceptorChange}
                                   />
+                                  {receptorError && (
+                                    <div className="text-xs text-justify bottom-0 left-0 p-2 text-red-500">
+                                      {receptorError}
                                   </div>
+                                  )}
+                                </div>
                                 </div>
                                 <div className="sm:col-span-3">
                                   <label htmlFor="tipo" className="block text-sm font-medium leading-6 text-gray-900">
@@ -184,7 +209,9 @@ const CreateModal = (props: any) =>  {
                       </div>
                     </div>
                   </div>
+                     
                 </div>
+                
                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"

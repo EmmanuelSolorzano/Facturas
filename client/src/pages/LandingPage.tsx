@@ -43,12 +43,6 @@ export default function LandingPage() {
     setShowDeleteModal(true);
   };
 
-  //Success modal
-  const [showSuccessModal, setShowSuccessModal] = useState(true);
-  const handleSuccessButtonClick = () => {
-    setShowSuccessModal(true);
-  };
-
   //Pagination
   const [data, setData] = useState(dataArray);
   const itemsPerPage = 8;
@@ -82,7 +76,6 @@ export default function LandingPage() {
 
   return (
     <div className={`bg-white min-h-screen ${!loaded ? 'hidden' : ''}`}>
-      <FailureModal showModal={showSuccessModal} setShowModal={setShowSuccessModal}/>
       <NavBar />
       <CreateModal showModal={showCreateModal} setShowModal={setShowCreateModal}/>
       <div className="container mx-auto p-8 mt-8 pl-0 pr-0">

@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import httpClient from "../httpClient";
 import NavBar from "../components/NavBar";
+import FailureModal from "../components/modals/FailureModal";
 
 export default function LoginPage() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState("");
+  const [failureModal, setFailureModal] = useState(false);
 
   const logInUser = async () => {
     console.log(email, password);
@@ -14,18 +17,24 @@ export default function LoginPage() {
         email,
         password,
       });
+      console.log(resp);
 
       window.location.href = "/";
     } catch (error: any) {
-      if (error.response.status === 401) {
-        alert("Invalid credentials");
-      }
+        if(error?.response?.status){
+            setError(error.response.data["error"]);
+        }
+        else{
+          setFailureModal(true);
+          setError("");
+        }
     }
   };
 
   return (
     <>
       <NavBar />
+      <FailureModal showModal={failureModal} setShowModal={setFailureModal} />
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -86,6 +95,17 @@ export default function LoginPage() {
               >
                 Iniciar sesión
               </button>
+            </div>
+            <div className="justify-center flex">
+              {error !== "" && (
+                <span className="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-s font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
+                  {error}
+                </span>
+              )}
+            </div>
+              
+            <div>
+            
             </div>
           </form>
         </div>
