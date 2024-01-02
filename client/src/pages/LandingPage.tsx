@@ -12,7 +12,7 @@ import { FaAngleRight } from "react-icons/fa";
 
 export default function LandingPage() {
   const [user, setUser] = useState<User | null>(null);
-  
+  const [loaded, setLoaded] = useState(false);
   
   //Modals
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -66,6 +66,7 @@ export default function LandingPage() {
       try {
         const resp = await httpClient.get("http://127.0.0.1:5000/@me");
         setUser(resp.data);
+        setLoaded(true);
       } catch (error) {
           window.location.href = "/login";
       }
@@ -73,7 +74,7 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className={`bg-white min-h-screen ${!loaded ? 'hidden' : ''}`}>
       <NavBar />
       <CreateModal showModal={showCreateModal} setShowModal={setShowCreateModal}/>
       <div className="container mx-auto p-8 mt-8 pl-0 pr-0">
