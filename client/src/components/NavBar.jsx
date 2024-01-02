@@ -11,7 +11,7 @@ export default function NavBar() {
       };
 
     return (
-        <nav className="bg-gray-800 top-0 w-full">
+        <nav className="bg-gray-800 top-0 w-full px-4 py-2">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     <div className="flex items-center">
@@ -24,7 +24,7 @@ export default function NavBar() {
                                         alt="Your Company"
                                     />
                                 </Link>
-                                <Link to="/" className="text-white text-2xl font-bold ml-2">
+                                <Link to="/" className="text-white text-2xl font-bold ml-3">
                                     <p>Inicio</p>
                                 </Link>
                             </div>
@@ -32,7 +32,7 @@ export default function NavBar() {
                     </div>
                     {location.pathname === "/" && (
                         <div className="flex">
-                           <a href="/login" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-lg font-medium" onClick={logoutUser}>Cerrar sesión</a>
+                           <a className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-lg font-medium" onClick={logoutUser}>Cerrar sesión</a>
                         </div>
                     )}
                 </div>

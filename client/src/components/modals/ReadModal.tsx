@@ -1,10 +1,12 @@
 import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { FaRegFilePdf } from "react-icons/fa6";
-import { IoIosAddCircle } from "react-icons/io";
-import ReceptorDropdown from './utils/ReceptorDropdown';
+import { MdRemoveRedEye } from "react-icons/md";
+import { IoMdCloudDownload } from "react-icons/io";
 
-const CreateModal = (props: any) =>  {
+
+const ReadModal = (props: any) =>  {
+  const { id, numeroFactura, receptor, nombreProveedor, creador, importeFactura, porcentajeIVA, fecha, tipoCuenta } = props;
+
 
   const cancelButtonRef = useRef(null)
 
@@ -37,12 +39,12 @@ const CreateModal = (props: any) =>  {
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
-                    <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
-                    <IoIosAddCircle className="h-6 w-6 text-green-600"/>
+                    <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-indigo-100 sm:mx-0 sm:h-10 sm:w-10">
+                    <MdRemoveRedEye className="h-6 w-6 text-indigo-600"/>
                     </div>
                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                       <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                        Crear registro
+                        Visualizar registro
                       </Dialog.Title>
                       <div className="mt-2">
                         {/* Aquí empieza el modal */}
@@ -50,29 +52,21 @@ const CreateModal = (props: any) =>  {
                           <div className="space-y-12">
                             <div className="border-b border-gray-900/10 pb-12">
                               <p className="mt-1 text-sm leading-6 text-gray-600">
-                                Crea un nuevo registro de facturación.
+                                Visualizar el registro de facturación.
                               </p>
 
                               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div className="sm:col-span-3">
-                                  <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
+                                  <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900 ">
                                     Receptor
                                   </label>
-                                  <div className="mt-2">
-                                  <input
-                                    type="text"
-                                    name="first-name"
-                                    id="first-name"
-                                    autoComplete="given-name"
-                                    className="block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                  />
-                                  </div>
+                                  <p className='font-bold text-sm'>{receptor}</p>
                                 </div>
                                 <div className="sm:col-span-3">
                                   <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
                                     Tipo de cuenta
                                   </label>
-                                  <ReceptorDropdown />
+                                  <p className='font-bold text-sm'>{tipoCuenta === 'Cliente' ? 'Cliente (por cobrar)' : 'Proveedor (por pagar)'}</p>
                                 </div>
 
 
@@ -80,85 +74,81 @@ const CreateModal = (props: any) =>  {
                                   <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
                                     Número de factura
                                   </label>
-                                  <div className="mt-2">
-                                    <input
-                                      type="text"
-                                      name="first-name"
-                                      id="first-name"
-                                      autoComplete="given-name"
-                                      className="block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    />
-                                  </div>
+                                   <p className='font-bold text-sm'>{numeroFactura}</p>
                                 </div>
 
                                 <div className="sm:col-span-3">
                                   <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
                                     Nombre proveedor/cliente
                                   </label>
-                                  <div className="mt-2">
-                                    <input
-                                      type="text"
-                                      name="first-name"
-                                      id="first-name"
-                                      autoComplete="given-name"
-                                      className="block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    />
-                                  </div>
+                                    <p className='font-bold text-sm'>{nombreProveedor}</p>
                                 </div>
 
                                 <div className="sm:col-span-3">
                                   <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
                                     Importe ($)
                                   </label>
-                                  <div className="mt-2">
-                                    <input 
-                                      type="text" 
-                                      name="price" 
-                                      id="price" 
-                                      className="block w-full rounded-md border-0 py-1.5 pl-2 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
-                                      placeholder="0.00"
-                                      />
-                                  </div>
+                                    <p className='font-bold text-sm'>{importeFactura}</p>
                                 </div>
 
                                 <div className="sm:col-span-3">
                                   <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
                                     IVA (%)
                                   </label>
-                                  <div className="mt-2">
-                                    <input
-                                      type="text"
-                                      name="first-name"
-                                      id="first-name"
-                                      autoComplete="given-name"
-                                      className="block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                      defaultValue="16"
-                                    />
-                                  </div>
+                                    <p className='font-bold text-sm'>{porcentajeIVA}</p>
+                                </div>
+
+                                <div className="sm:col-span-3">
+                                  <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
+                                    Fecha de creación
+                                  </label>
+                                    <p className='font-bold text-sm'>{fecha}</p>
+                                </div>
+
+                                <div className="sm:col-span-3">
+                                  <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
+                                    Creador
+                                  </label>
+                                    <p className='font-bold text-sm'>{creador}</p>
                                 </div>
 
                                 
                               </div>
                               
                             </div>
-                            <div className="col-span-full">
-                              <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
-                                PDF
-                              </label>
-                              <div className="max-w-2xl mx-auto">
+                            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                            <div className="sm:col-span-3">
+                              <div className="col-span-full">
+                                  <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
+                                    PDF
+                                  </label>
+                                  <div className="max-w-2xl mx-auto">
+                                    <button
+                                      type="button"
+                                      className="inline-flex w-full justify-center rounded-md bg-indigo-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto"
+                                    >
+                                      Descargar<IoMdCloudDownload className="h-6 w-6 text-white ml-2"/>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="sm:col-span-3">
+                              <div className="col-span-full">
+                                <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
+                                  XML
+                                </label>
+                                <div className="max-w-2xl mx-auto">
+                                    <button
+                                      type="button"
+                                      className="inline-flex w-full justify-center rounded-md bg-indigo-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto"
+                                    >
+                                      Descargar<IoMdCloudDownload className="h-6 w-6 text-white ml-2"/>
+                                    </button>
+                                </div>
+                              </div>
+                              </div>
 
-                                <input className="block w-full text-sm text-white border border-indigo-600 rounded-lg cursor-pointer focus:outline-none bg-indigo-600" id="file_input" type="file" />
-                              </div>
                             </div>
-                            <div className="col-span-full">
-                              <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
-                                XML
-                              </label>
-                              <div className="max-w-2xl mx-auto">
-                                <input className="block w-full text-sm text-white border border-indigo-600 rounded-lg cursor-pointer focus:outline-none bg-indigo-600" id="file_input" type="file" />
-                              </div>
-                            </div>
-                            
                               
                           </div>
 
@@ -171,10 +161,10 @@ const CreateModal = (props: any) =>  {
                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
-                    onClick={() => props.setShowModal(false)}
+                    className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto"
+                    //onClick={() => props.setShowModal(false)}
                   >
-                    Crear
+                    Descargar registro
                   </button>
                   <button
                     type="button"
@@ -182,7 +172,7 @@ const CreateModal = (props: any) =>  {
                     onClick={() => props.setShowModal(false)}
                     ref={cancelButtonRef}
                   >
-                    Cancelar
+                    Cerrar
                   </button>
                 </div>
               </Dialog.Panel>
@@ -194,4 +184,4 @@ const CreateModal = (props: any) =>  {
   )
 }
 
-export default CreateModal;
+export default ReadModal;

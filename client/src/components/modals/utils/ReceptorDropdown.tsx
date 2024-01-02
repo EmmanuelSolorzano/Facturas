@@ -4,10 +4,10 @@ import { IoMdArrowDropdown } from "react-icons/io";
 
 
 
-const ReceptorDropdown = () => {
+const ReceptorDropdown = (props: any) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState('Seleccionar receptor');
-  const options = ['Techno', 'Procarsol', 'Fraccionaria'];
+  const [selectedItem, setSelectedItem] = useState(props.default === 'Cliente' ? 'Cliente (por cobrar)' : 'Proveedor (por pagar)');
+  const options = ['Cliente (por cobrar)', 'Proveedor (por pagar)'];
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -34,7 +34,6 @@ const ReceptorDropdown = () => {
           <ul className="py-2">
             <li className="text-sm px-4 py-2 hover:bg-gray-100" onClick={() => handleSelectItem(options[0])}>{options[0]}</li>
             <li className="text-sm px-4 py-2 hover:bg-gray-100" onClick={() => handleSelectItem(options[1])}>{options[1]}</li>
-            <li className="text-sm px-4 py-2 hover:bg-gray-100" onClick={() => handleSelectItem(options[2])}>{options[2]}</li>
           </ul>
         </div>
       )}
