@@ -9,7 +9,6 @@ import DeleteModal from "../components/modals/DeleteModal";
 import dataArray from "./data/data";
 import { FaAngleLeft } from "react-icons/fa";
 import { FaAngleRight } from "react-icons/fa";
-import FailureModal from "../components/modals/FailureModal";
 
 export default function LandingPage() {
   const [user, setUser] = useState<User | null>(null);

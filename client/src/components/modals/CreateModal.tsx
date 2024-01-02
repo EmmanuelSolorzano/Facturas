@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState } from 'react'
+import { Fragment, useRef, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { IoIosAddCircle } from "react-icons/io";
 import ReceptorDropdown from './utils/ReceptorDropdown';
@@ -13,13 +13,30 @@ const CreateModal = (props: any) =>  {
   const [tipoCuentaPost, setTipoCuentaPost] = useState<string>("");
 
   function printValues() {
+    console.log("--------------------")
     console.log("Número de factura: ", numeroFacturaPost);
     console.log("Receptor: ", receptorPost);
     console.log("Nombre de proveedor: " ,nombreProveedorPost);
     console.log("Importe: ", importeFacturaPost);
     console.log("IVA: ", porcentajeIVAPost);
     console.log("Tipo de cuenta: ", tipoCuentaPost);
+    console.log("--------------------")
   }
+
+  function handleCloseModal() {
+    props.setShowModal(false);
+    setNumeroFacturaPost("");
+    setReceptorPost("");
+    setNombreProveedorPost("");
+    setImporteFacturaPost(0);
+    setPorcentajeIVAPost(16);
+    setTipoCuentaPost("");
+    setReceptorError(null);
+    setNumeroFacturaError(null);
+    setNombreProveedorError(null);
+    setImporteFacturaError(null);
+    setPorcentajeIVAError(null);
+  };
 
   //REGEX Validation
   const [receptorError, setReceptorError] = useState<string | null>(null);
@@ -27,18 +44,96 @@ const CreateModal = (props: any) =>  {
   const [nombreProveedorError, setNombreProveedorError] = useState<string | null>(null);
   const [importeFacturaError, setImporteFacturaError] = useState<string | null>(null);
   const [porcentajeIVAError, setPorcentajeIVAError] = useState<string | null>(null);
-  const [tipoCuentaError, setTipoCuentaError] = useState<string | null>(null);
 
   const handleReceptorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
-    const regex = /^[\p{L}0-9.,]{3,24}$/u;
+    const regex = /^(?=\S)(?!.*\s{2,})[\p{L}0-9., ]{1,24}$/u;
     setReceptorPost(inputValue);
     if (regex.test(inputValue)) {
       setReceptorError(null);
     } else {
-      setReceptorError('Ingrese caracteres válidos (mayúsculas, minúsculas, comas, puntos y números). Longitud de 3 - 24 carácteres.');
+      setReceptorError('Ingrese caracteres válidos (mayúsculas, minúsculas, comas, puntos y números). Longitud máxima de 24 carácteres.');
     }
   };
+
+  const handleNumeroFacturaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    const regex = /^(?=[a-zA-Z0-9])(?!.*\s{2,})[a-zA-Z0-9 ]{1,24}$/;
+    setNumeroFacturaPost(inputValue);
+    if (regex.test(inputValue)) {
+      setNumeroFacturaError(null);
+    } else {
+      setNumeroFacturaError('Ingrese caracteres válidos (mayúsculas, minúsculas y números). Longitud máxima de 24 carácteres.');
+    }
+  };
+
+  const handleNombreProveedorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    const regex = /^(?=\S)(?!.*\s{2,})[\p{L}0-9., ]{1,24}$/u;
+    setNombreProveedorPost(inputValue);
+    if (regex.test(inputValue)) {
+      setNombreProveedorError(null);
+    } else {
+      setNombreProveedorError('Ingrese caracteres válidos (mayúsculas, minúsculas, comas, puntos y números). Longitud máxima de 24 carácteres.');
+    }
+  }
+
+  const handleImporteFacturaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    const regex = /^\d{1,8}(\.\d{1,4})?$/;
+    if (regex.test(inputValue)) {
+      setImporteFacturaError(null);
+      setImporteFacturaPost(parseFloat(inputValue));
+    } else {
+      setImporteFacturaError('Ingrese caracteres válidos (números y 1 punto decimal). Se compone hasta de 8 números enteros y 4 decimales. Longitud máxima de 12 números.');
+    }
+  }
+
+  const handlePorcentajeIVAChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    const regex = /^\d{1,2}(\.\d{1,4})?$/;
+    if (regex.test(inputValue)) {
+      setPorcentajeIVAError(null);
+      setPorcentajeIVAPost(parseFloat(inputValue));
+    } else {
+      setPorcentajeIVAError('Ingrese caracteres válidos (números y 1 punto decimal). Se compone hasta de 2 números enteros y 4 decimales. Longitud máxima de 6 números.');
+    }
+  }
+
+  // Estado para deshabilitar el botón
+  const [disableButton, setDisableButton] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (
+      receptorError !== null ||
+      numeroFacturaError !== null ||
+      nombreProveedorError !== null ||
+      importeFacturaError !== null ||
+      porcentajeIVAError !== null ||
+      numeroFacturaPost === "" ||
+      receptorPost === "" ||
+      nombreProveedorPost === "" ||
+      importeFacturaPost === 0 ||
+      porcentajeIVAError === "" ||
+      tipoCuentaPost === ""
+    ) {
+      setDisableButton(true);
+    } else {
+      setDisableButton(false);
+    }
+  }, [
+    receptorError,
+    numeroFacturaError,
+    nombreProveedorError,
+    importeFacturaError,
+    porcentajeIVAError,
+    numeroFacturaPost,
+    receptorPost,
+    nombreProveedorPost,
+    importeFacturaPost,
+    porcentajeIVAError,
+    tipoCuentaPost,
+  ]);
 
   const cancelButtonRef = useRef(null)
 
@@ -105,7 +200,7 @@ const CreateModal = (props: any) =>  {
                                     id="receptor"
                                     value={receptorPost}
                                     className={`block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
-                                      receptorError ? 'ring-red-300' : 'ring-gray-300'
+                                      receptorError ? 'ring-red-300 focus:ring-red-300' : 'ring-gray-300 focus:ring-indigo-600'
                                     }`}
                                     onChange={handleReceptorChange}
                                   />
@@ -123,7 +218,7 @@ const CreateModal = (props: any) =>  {
                                   </label>
                                   <p className="mt-1 text-lg leading-6 text-red-500">*</p>
                                 </div>
-                                  <ReceptorDropdown setTipo={setTipoCuentaPost} />
+                                  <ReceptorDropdown setTipo={setTipoCuentaPost}/>
                                 </div>
 
 
@@ -139,9 +234,16 @@ const CreateModal = (props: any) =>  {
                                       type="text"
                                       name="numero"
                                       id="numero"
-                                      className="block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                      onChange={(e) => setNumeroFacturaPost(e.target.value)}
+                                      className={`block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
+                                        numeroFacturaError ? 'ring-red-300 focus:ring-red-300' : 'ring-gray-300 focus:ring-indigo-600'
+                                      }`}                                      
+                                      onChange={handleNumeroFacturaChange}
                                     />
+                                    {numeroFacturaError && (
+                                    <div className="text-xs text-justify bottom-0 left-0 p-2 text-red-500">
+                                      {numeroFacturaError}
+                                  </div>
+                                  )}
                                   </div>
                                 </div>
 
@@ -157,9 +259,16 @@ const CreateModal = (props: any) =>  {
                                       type="text"
                                       name="nombre"
                                       id="nombre"
-                                      className="block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                      onChange={(e) => setNombreProveedorPost(e.target.value)}
+                                      className={`block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
+                                        nombreProveedorError ? 'ring-red-300 focus:ring-red-300' : 'ring-gray-300 focus:ring-indigo-600'
+                                      }`}                                      
+                                      onChange={handleNombreProveedorChange}
                                     />
+                                    {nombreProveedorError && (
+                                    <div className="text-xs text-justify bottom-0 left-0 p-2 text-red-500">
+                                      {nombreProveedorError}
+                                  </div>
+                                  )}
                                   </div>
                                 </div>
 
@@ -175,10 +284,17 @@ const CreateModal = (props: any) =>  {
                                       type="text" 
                                       name="importe" 
                                       id="importe" 
-                                      className="block w-full rounded-md border-0 py-1.5 pl-2 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
+                                      className={`block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
+                                        importeFacturaError ? 'ring-red-300 focus:ring-red-300' : 'ring-gray-300 focus:ring-indigo-600'
+                                      }`}                                      
                                       placeholder="0.00"
-                                      onChange={(e) => setImporteFacturaPost(parseFloat(e.target.value))}
+                                      onChange={handleImporteFacturaChange}
                                       />
+                                      {importeFacturaError && (
+                                        <div className="text-xs text-justify bottom-0 left-0 p-2 text-red-500">
+                                          {importeFacturaError}
+                                      </div>
+                                      )}
                                   </div>
                                 </div>
 
@@ -194,10 +310,17 @@ const CreateModal = (props: any) =>  {
                                       type="text"
                                       name="iva"
                                       id="iva"
-                                      className="block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                      className={`block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${
+                                        porcentajeIVAError ? 'ring-red-300 focus:ring-red-300' : 'ring-gray-300 focus:ring-indigo-600'
+                                      }`}                                      
                                       defaultValue="16"
-                                      onChange={(e) => setPorcentajeIVAPost(parseFloat(e.target.value))}
+                                      onChange={handlePorcentajeIVAChange}
                                     />
+                                    {porcentajeIVAError && (
+                                        <div className="text-xs text-justify bottom-0 left-0 p-2 text-red-500">
+                                          {porcentajeIVAError}
+                                      </div>
+                                      )}
                                   </div>
                                 </div>
 
@@ -239,13 +362,14 @@ const CreateModal = (props: any) =>  {
                     type="button"
                     className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
                     onClick={() => printValues()}
+                    disabled={disableButton}
                   >
                     Crear
                   </button>
                   <button
                     type="button"
                     className="inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:w-auto"
-                    onClick={() => props.setShowModal(false)}
+                    onClick={() => handleCloseModal()}
                     ref={cancelButtonRef}
                   >
                     Cancelar
