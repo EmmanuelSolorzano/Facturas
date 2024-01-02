@@ -13,11 +13,17 @@ CORS(app, support_credentials=True)
 server_session = Session(app)
 db.init_app(app)
 
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Credentials', 'true')
+    return response
+
 with app.app_context():
     db.create_all()
 
 @app.route("/@me")
-@cross_origin(supports_credentials=True)
 def get_current_user():
     user_id = session.get("user_id")
 
@@ -31,7 +37,6 @@ def get_current_user():
     }) 
 
 @app.route("/register", methods=["POST"])
-@cross_origin(supports_credentials=True)
 def register_user():
 
     email = request.json["email"]
@@ -57,7 +62,6 @@ def register_user():
     return response
 
 @app.route("/login", methods=["POST"])
-@cross_origin(supports_credentials=True)
 def login_user():
     email = request.json["email"]
     password = request.json["password"]
@@ -78,7 +82,6 @@ def login_user():
     return response
 
 @app.route("/logout", methods=["POST"])
-@cross_origin(supports_credentials=True)
 def logout_user():
     if "user_id" in session:
         session.pop("user_id")

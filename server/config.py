@@ -17,4 +17,3 @@ class ApplicationConfig:
     SESSION_REDIS = redis.StrictRedis(host='localhost', port=6379, db=0)
     SESSION_COOKIE_SAMESITE='None'
     SESSION_COOKIE_SECURE='True'
-    CORS_HEADERS = 'Content-Type'
