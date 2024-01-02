@@ -28,12 +28,12 @@ const UpdateModal = (props: any) =>  {
   };
 
   //Validate changes
-  const [initialNumeroFactura, setInitialNumeroFactura] = useState<string>(numeroFactura);
-  const [initialReceptor, setInitialReceptor] = useState<string>(receptor);
-  const [initialNombreProveedor, setInitialNombreProveedor] = useState<string>(nombreProveedor);
-  const [initialImporteFactura, setInitialImporteFactura] = useState<number>(importeFactura);
-  const [initialPorcentajeIVA, setInitialPorcentajeIVA] = useState<number>(porcentajeIVA);
-  const [initialTipoCuenta, setInitialTipoCuenta] = useState<string>(tipoCuenta);
+  const initialNumeroFactura = numeroFactura;
+  const initialReceptor = receptor;
+  const initialNombreProveedor = nombreProveedor;
+  const initialImporteFactura = importeFactura;
+  const initialPorcentajeIVA = porcentajeIVA;
+  const initialTipoCuenta = tipoCuenta;
 
 
   const [numeroFacturaPost, setNumeroFacturaPost] = useState<string>(numeroFactura);
