@@ -64,9 +64,9 @@ def login_user():
 
     user = User.query.filter_by(email=email).first()
     if user is None:
-        return jsonify({"error": "Unauthorized"}), 401
+        return jsonify({"error": "No se ha encontrado el correo ingresado."}), 401
     if not bcrypt.check_password_hash(user.password, password):
-        return jsonify({"error": "Unauthorized"}), 401
+        return jsonify({"error": "Contraseña incorrecta."}), 401
 
     session["user_id"] = user.id
 
@@ -80,8 +80,11 @@ def login_user():
 @app.route("/logout", methods=["POST"])
 @cross_origin(supports_credentials=True)
 def logout_user():
-    session.pop("user_id")
-    return "200"
+    if "user_id" in session:
+        session.pop("user_id")
+        return "200"
+    else:
+        return jsonify({"error": "User not logged in"}), 401
 
 if __name__ == "__main__":
     app.run(debug=True)
