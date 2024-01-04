@@ -2,6 +2,7 @@ import { Fragment, useRef, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { IoIosAddCircle } from "react-icons/io";
 import ReceptorDropdown from './utils/ReceptorDropdown';
+import AutocompleteCustom from '../Autocomplete';
 
 const CreateModal = (props: any) =>  {
 
@@ -45,8 +46,8 @@ const CreateModal = (props: any) =>  {
   const [importeFacturaError, setImporteFacturaError] = useState<string | null>(null);
   const [porcentajeIVAError, setPorcentajeIVAError] = useState<string | null>(null);
 
-  const handleReceptorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value;
+  const handleReceptorChange = (value: any) => {
+    const inputValue = value;
     const regex = /^(?=\S)(?!.*\s{2,})[\p{L}0-9., ]{1,24}$/u;
     setReceptorPost(inputValue);
     if (regex.test(inputValue)) {
@@ -67,8 +68,8 @@ const CreateModal = (props: any) =>  {
     }
   };
 
-  const handleNombreProveedorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value;
+  const handleNombreProveedorChange = (value: any) => {
+    const inputValue = value;
     const regex = /^(?=\S)(?!.*\s{2,})[\p{L}0-9., ]{1,24}$/u;
     setNombreProveedorPost(inputValue);
     if (regex.test(inputValue)) {
@@ -194,16 +195,7 @@ const CreateModal = (props: any) =>  {
                                   <p className="mt-1 text-lg leading-6 text-red-500">*</p>
                                 </div>
                                 <div className="mt-2">
-                                  <input
-                                    type="text"
-                                    name="receptor"
-                                    id="receptor"
-                                    value={receptorPost}
-                                    className={`block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
-                                      receptorError ? 'ring-red-300 focus:ring-red-300' : 'ring-gray-300 focus:ring-indigo-600'
-                                    }`}
-                                    onChange={handleReceptorChange}
-                                  />
+                                  <AutocompleteCustom who={'Receptor'} error={receptorError} handleChange={handleReceptorChange}/>
                                   {receptorError && (
                                     <div className="text-xs text-justify bottom-0 left-0 p-2 text-red-500">
                                       {receptorError}
@@ -211,14 +203,24 @@ const CreateModal = (props: any) =>  {
                                   )}
                                 </div>
                                 </div>
+                                
+
+
                                 <div className="sm:col-span-3">
                                   <div className="flex items-center">
-                                  <label htmlFor="tipo" className="block text-sm font-medium leading-6 text-gray-900 mr-1">
-                                    Tipo de cuenta
+                                  <label htmlFor="nombre" className="block text-sm font-medium leading-6 text-gray-900 mr-1">
+                                    Nombre proveedor/cliente
                                   </label>
                                   <p className="mt-1 text-lg leading-6 text-red-500">*</p>
                                 </div>
-                                  <ReceptorDropdown setTipo={setTipoCuentaPost}/>
+                                  <div className="mt-2">
+                                  <AutocompleteCustom who={'Proveedor'} error={nombreProveedorError} handleChange={handleNombreProveedorChange}/>
+                                    {nombreProveedorError && (
+                                    <div className="text-xs text-justify bottom-0 left-0 p-2 text-red-500">
+                                      {nombreProveedorError}
+                                  </div>
+                                  )}
+                                  </div>
                                 </div>
 
 
@@ -247,30 +249,18 @@ const CreateModal = (props: any) =>  {
                                   </div>
                                 </div>
 
+
                                 <div className="sm:col-span-3">
                                   <div className="flex items-center">
-                                  <label htmlFor="nombre" className="block text-sm font-medium leading-6 text-gray-900 mr-1">
-                                    Nombre proveedor/cliente
+                                  <label htmlFor="tipo" className="block text-sm font-medium leading-6 text-gray-900 mr-1">
+                                    Tipo de cuenta
                                   </label>
                                   <p className="mt-1 text-lg leading-6 text-red-500">*</p>
                                 </div>
-                                  <div className="mt-2">
-                                    <input
-                                      type="text"
-                                      name="nombre"
-                                      id="nombre"
-                                      className={`block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
-                                        nombreProveedorError ? 'ring-red-300 focus:ring-red-300' : 'ring-gray-300 focus:ring-indigo-600'
-                                      }`}                                      
-                                      onChange={handleNombreProveedorChange}
-                                    />
-                                    {nombreProveedorError && (
-                                    <div className="text-xs text-justify bottom-0 left-0 p-2 text-red-500">
-                                      {nombreProveedorError}
-                                  </div>
-                                  )}
-                                  </div>
+                                  <ReceptorDropdown setTipo={setTipoCuentaPost}/>
                                 </div>
+
+                                
 
                                 <div className="sm:col-span-3">
                                   <div className="flex items-center">

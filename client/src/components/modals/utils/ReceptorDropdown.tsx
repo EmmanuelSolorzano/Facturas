@@ -33,7 +33,7 @@ const ReceptorDropdown = (props: any) => {
         <div className="absolute mt-2 bg-white border border-gray-300 rounded-md shadow-lg">
           {/* Dropdown content */}
           <ul className="py-2">
-            <li className="text-sm px-4 py-2 hover:bg-gray-100" onClick={() => handleSelectItem(options[0])}>{options[0]}</li>
+            <li className="text-sm px-4 py-2 hover:bg-gray-100" onClick={() => handleSelectItem(options[0])}>{options[0]}<br/></li>
             <li className="text-sm px-4 py-2 hover:bg-gray-100" onClick={() => handleSelectItem(options[1])}>{options[1]}</li>
           </ul>
         </div>
