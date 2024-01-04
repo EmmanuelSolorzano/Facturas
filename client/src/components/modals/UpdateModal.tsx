@@ -237,7 +237,7 @@ const UpdateModal = (props: any) =>  {
                                   <p className="mt-1 text-lg leading-6 text-red-500">*</p>
                                   </div>
                                   <div className="mt-2">
-                                  <AutocompleteCustom who={'Receptor'} error={receptorError} handleChange={handleReceptorChange} default={initialReceptor} />
+                                  <AutocompleteCustom who={'Receptor'} error={receptorError} handleChange={handleReceptorChange} default={initialReceptor} update={true}/>
                                   {receptorError && (
                                     <div className="text-xs text-justify bottom-0 left-0 p-2 text-red-500">
                                       {receptorError}
@@ -254,7 +254,7 @@ const UpdateModal = (props: any) =>  {
                                   <p className="mt-1 text-lg leading-6 text-red-500">*</p>
                                   </div>
                                   <div className="mt-2">
-                                  <AutocompleteCustom who={'Proveedor'} error={nombreProveedorError} handleChange={handleNombreProveedorChange} default={initialNombreProveedor} />
+                                  <AutocompleteCustom who={'Proveedor'} error={nombreProveedorError} handleChange={handleNombreProveedorChange} default={initialNombreProveedor} update={true} />
                                     {nombreProveedorError && (
                                     <div className="text-xs text-justify bottom-0 left-0 p-2 text-red-500">
                                       {nombreProveedorError}
