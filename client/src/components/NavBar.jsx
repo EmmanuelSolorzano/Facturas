@@ -17,15 +17,15 @@ export default function NavBar() {
                     <div className="flex items-center">
                         <div className="flex-shrink-0">
                             <div className="flex items-center">
-                                <Link to="/" className="text-white text-2xl font-bold ml-2">
+                                <Link to="/" className="text-white text-2xl font-bold">
                                     <img
                                         className="mx-auto h-10 w-auto"
                                         src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                                         alt="Your Company"
                                     />
                                 </Link>
-                                <Link to="/" className="text-white text-2xl font-bold ml-3">
-                                    <p className="">Inicio</p>
+                                <Link to="/" className="text-white text-2xl font-bold">
+                                    <p>&nbsp;Inicio</p>
                                 </Link>
                             </div>
                         </div>
