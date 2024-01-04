@@ -115,7 +115,7 @@ export default function AutocompleteCustom(props: any) {
     <ThemeProvider theme={theme}>
     <Autocomplete
       id="asynchronous-demo"
-
+      sx={{ width: 200, borderWidth: (props.update && (initial !== props.post)) ? 2.2 : 0, borderColor: 'primary.main', borderRadius: 2, borderStyle: 'solid'}}
       open={open}
       onOpen={() => {
         setOpen(true);
@@ -138,7 +138,8 @@ export default function AutocompleteCustom(props: any) {
           error={props.error}
           //variant='standard'
           size='small'
-          color={props.update && (initial !== inputValue) ? 'primary' : 'secondary'}
+          sx={{padding: 0, margin: 0}}
+          color={props.update && (initial !== props.post) ? 'primary' : 'secondary'}
           margin='dense'
           InputProps={{
             ...params.InputProps,
