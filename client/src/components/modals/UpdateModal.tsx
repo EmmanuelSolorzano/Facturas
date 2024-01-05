@@ -8,21 +8,21 @@ const UpdateModal = (props: any) =>  {
 
   const cancelButtonRef = useRef(null);
 
-  const { numeroFactura, receptor, nombreProveedor, importeFactura, porcentajeIVA, tipoCuenta } = props;
+  const { numeroFactura, receptor, nombreProveedor, subtotal, retencion, tipoCuenta } = props;
 
   function handleCloseModal() {
     props.setShowModal(false);
     setNumeroFacturaPost(initialNumeroFactura);
     setReceptorPost(initialReceptor);
     setNombreProveedorPost(initialNombreProveedor);
-    setImporteFacturaPost(initialImporteFactura);
-    setPorcentajeIVAPost(initialPorcentajeIVA);
+    setsubtotalPost(initialsubtotal);
+    setretencionPost(initialretencion);
     setTipoCuentaPost(initialTipoCuenta);
     setReceptorError(null);
     setNumeroFacturaError(null);
     setNombreProveedorError(null);
-    setImporteFacturaError(null);
-    setPorcentajeIVAError(null);
+    setsubtotalError(null);
+    setretencionError(null);
     setChanges([]);
     setChangesPost({});
   };
@@ -31,19 +31,22 @@ const UpdateModal = (props: any) =>  {
   const initialNumeroFactura = numeroFactura;
   const initialReceptor = receptor;
   const initialNombreProveedor = nombreProveedor;
-  const initialImporteFactura = importeFactura;
-  const initialPorcentajeIVA = porcentajeIVA;
+  const initialsubtotal = subtotal;
+  const initialretencion = retencion;
   const initialTipoCuenta = tipoCuenta;
 
-  const [importeFacturaText, setImporteFacturaText] = useState<string>(importeFactura);
-  const [porcentajeIVAText, setPorcentajeIVAText] = useState<string>(porcentajeIVA);
+  const [subtotalText, setsubtotalText] = useState<string>(subtotal);
+  const [retencionText, setretencionText] = useState<string>(retencion);
 
   const [numeroFacturaPost, setNumeroFacturaPost] = useState<string>(numeroFactura);
   const [receptorPost, setReceptorPost] = useState<string>(receptor);
   const [nombreProveedorPost, setNombreProveedorPost] = useState<string>(nombreProveedor);
-  const [importeFacturaPost, setImporteFacturaPost] = useState<number>(importeFactura);
-  const [porcentajeIVAPost, setPorcentajeIVAPost] = useState<number>(porcentajeIVA);
+  const [subtotalPost, setsubtotalPost] = useState<number>(subtotal);
+  const [retencionPost, setretencionPost] = useState<number>(retencion);
   const [tipoCuentaPost, setTipoCuentaPost] = useState<string>(tipoCuenta);
+
+  const [iva, setIva] = useState<number>(subtotal * 0.16);
+  const [importe, setImporte] = useState<number>(subtotal - retencion + (subtotal * 0.16));
 
   const [changesPost, setChangesPost] = useState({});
   const [changes, setChanges] = useState<{ field: string; value: any }[]>([]);
@@ -68,15 +71,15 @@ const UpdateModal = (props: any) =>  {
     checkAndAddChange('numeroFactura', initialNumeroFactura, numeroFacturaPost);
     checkAndAddChange('receptor', initialReceptor, receptorPost);
     checkAndAddChange('nombreProveedor', initialNombreProveedor, nombreProveedorPost);
-    checkAndAddChange('importeFactura', initialImporteFactura, importeFacturaPost);
-    checkAndAddChange('porcentajeIVA', initialPorcentajeIVA, porcentajeIVAPost);
+    checkAndAddChange('subtotal', initialsubtotal, subtotalPost);
+    checkAndAddChange('retencion', initialretencion, retencionPost);
     checkAndAddChange('tipoCuenta', initialTipoCuenta, tipoCuentaPost);
   }, [
     numeroFacturaPost,
     receptorPost,
     nombreProveedorPost,
-    importeFacturaPost,
-    porcentajeIVAPost,
+    subtotalPost,
+    retencionPost,
     tipoCuentaPost,
   ]);
 
@@ -84,8 +87,8 @@ const UpdateModal = (props: any) =>  {
   const [receptorError, setReceptorError] = useState<string | null>(null);
   const [numeroFacturaError, setNumeroFacturaError] = useState<string | null>(null);
   const [nombreProveedorError, setNombreProveedorError] = useState<string | null>(null);
-  const [importeFacturaError, setImporteFacturaError] = useState<string | null>(null);
-  const [porcentajeIVAError, setPorcentajeIVAError] = useState<string | null>(null);
+  const [subtotalError, setsubtotalError] = useState<string | null>(null);
+  const [retencionError, setretencionError] = useState<string | null>(null);
 
   const handleReceptorChange = (value: any) => {
     const inputValue = value;
@@ -120,28 +123,48 @@ const UpdateModal = (props: any) =>  {
     }
   }
 
-  const handleImporteFacturaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlesubtotalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
-    const regex = /^\d{1,8}(\.\d{1,4})?$/;
-    setImporteFacturaText(inputValue);
+    const regex = /^\d{1,8}(\.\d{1,2})?$/;
+    setsubtotalText(inputValue);
     if (regex.test(inputValue)) {
-      setImporteFacturaError(null);
-      setImporteFacturaPost(parseFloat(inputValue));
+      if (parseFloat(inputValue) < retencionPost) {
+        setsubtotalError('El subtotal no puede ser menor a la retención.');
+      }
+      else{
+        setsubtotalError(null);
+        setsubtotalPost(parseFloat(inputValue));
+        if (retencionError === 'La retención no puede ser mayor al subtotal.'){
+          setretencionError(null);
+        }
+        setIva(parseFloat(inputValue) * 0.16);
+        setImporte(parseFloat(inputValue) - retencionPost + (parseFloat(inputValue) * 0.16));
+      }
     } else {
-      setImporteFacturaError('Ingrese caracteres válidos (números y 1 punto decimal). Se compone hasta de 8 números enteros y 4 decimales. Longitud máxima de 12 carácteres.');
+      setsubtotalError('Ingrese caracteres válidos (números y 1 punto decimal). Se compone hasta de 8 números enteros y 2 decimales. Longitud máxima de 10 números.');
     }
   }
 
-  const handlePorcentajeIVAChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value)
+  const handleretencionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
-    const regex = /^\d{1,2}(\.\d{1,4})?$/;
-    setPorcentajeIVAText(inputValue);
+    const regex = /^\d{1,8}(\.\d{1,2})?$/;
+
+    setretencionText(inputValue);
     if (regex.test(inputValue)) {
-      setPorcentajeIVAError(null);
-      setPorcentajeIVAPost(parseFloat(inputValue));
+      if (parseFloat(inputValue) > subtotalPost) {
+        setretencionError('La retención no puede ser mayor al subtotal.');
+      }
+      else {
+        setretencionError(null);
+        setretencionPost(parseFloat(inputValue));
+        if (subtotalError === 'La retención no puede ser menor al subtotal.'){
+          setsubtotalError(null);
+        }
+        setImporte(subtotalPost - parseFloat(inputValue) + (subtotalPost * 0.16));
+        setIva(subtotalPost * 0.16);
+      }
     } else {
-      setPorcentajeIVAError('Ingrese caracteres válidos (números y 1 punto decimal). Se compone hasta de 2 números enteros y 4 decimales. Longitud máxima de 6 números.');
+      setretencionError('Ingrese caracteres válidos (números y 1 punto decimal). Se compone hasta de 8 números enteros y 2 decimales. Longitud máxima de 10 números.');
     }
   }
 
@@ -153,13 +176,13 @@ const UpdateModal = (props: any) =>  {
       receptorError !== null ||
       numeroFacturaError !== null ||
       nombreProveedorError !== null ||
-      importeFacturaError !== null ||
-      porcentajeIVAError !== null ||
+      subtotalError !== null ||
+      retencionError !== null ||
       numeroFacturaPost === "" ||
       receptorPost === "" ||
       nombreProveedorPost === "" ||
-      importeFacturaPost === 0 ||
-      porcentajeIVAError === "" ||
+      subtotalPost === 0 ||
+      retencionError === "" ||
       tipoCuentaPost === ""
     ) {
       setDisableButton(true);
@@ -170,13 +193,13 @@ const UpdateModal = (props: any) =>  {
     receptorError,
     numeroFacturaError,
     nombreProveedorError,
-    importeFacturaError,
-    porcentajeIVAError,
+    subtotalError,
+    retencionError,
     numeroFacturaPost,
     receptorPost,
     nombreProveedorPost,
-    importeFacturaPost,
-    porcentajeIVAError,
+    subtotalPost,
+    retencionError,
     tipoCuentaPost,
   ]);
 
@@ -302,25 +325,25 @@ const UpdateModal = (props: any) =>  {
                                 
 
                                 <div className="sm:col-span-3">
-                                <div className="flex items-center">
+                                  <div className="flex items-center">
                                   <label htmlFor="importe" className="block text-sm font-medium leading-6 text-gray-900 mr-1">
-                                    Importe ($)
+                                    Subtotal
                                   </label>
                                   <p className="mt-1 text-lg leading-6 text-red-500">*</p>
                                 </div>
                                   <div className="mt-2">
                                     <input 
                                       type="text" 
-                                      name="importe" 
-                                      value={importeFacturaText}
-                                      id="importe" 
-                                      className={`block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${importeFacturaError ? 'ring-red-300' : initialImporteFactura !== importeFacturaPost ? 'ring-yellow-600 ring-2' : 'focus:ring-indigo-600'} sm:text-sm sm:leading-6 `}
+                                      name="subtotal" 
+                                      id="subtotal" 
+                                      value={subtotalText}
+                                      className={`block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${subtotalError ? 'ring-red-300' : initialsubtotal !== subtotalPost ? 'ring-yellow-600 ring-2' : 'focus:ring-indigo-600'} sm:text-sm sm:leading-6 `}                                   
                                       placeholder="0.00"
-                                      onChange={handleImporteFacturaChange}
+                                      onChange={handlesubtotalChange}
                                       />
-                                      {importeFacturaError && (
+                                      {subtotalError && (
                                         <div className="text-xs text-justify bottom-0 left-0 p-2 text-red-500">
-                                          {importeFacturaError}
+                                          {subtotalError}
                                       </div>
                                       )}
                                   </div>
@@ -329,28 +352,69 @@ const UpdateModal = (props: any) =>  {
                                 <div className="sm:col-span-3">
                                   <div className="flex items-center">
                                   <label htmlFor="iva" className="block text-sm font-medium leading-6 text-gray-900 mr-1">
-                                    IVA (%)
+                                    Retención
                                   </label>
                                   <p className="mt-1 text-lg leading-6 text-red-500">*</p>
-                                  </div>
+                                </div>
                                   <div className="mt-2">
                                     <input
                                       type="text"
-                                      name="iva"
-                                      value={porcentajeIVAText}
-                                      id="iva"
-                                      className={`block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${porcentajeIVAError ? 'ring-red-300' : initialPorcentajeIVA !== porcentajeIVAPost ? 'ring-yellow-600 ring-2' : 'focus:ring-indigo-600'} sm:text-sm sm:leading-6 `}
-                                      onChange={handlePorcentajeIVAChange}
+                                      name="retencion"
+                                      id="retencion"
+                                      value={retencionText}
+                                      className={`block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${retencionError ? 'ring-red-300' : initialretencion !== retencionPost ? 'ring-yellow-600 ring-2' : 'focus:ring-indigo-600'} sm:text-sm sm:leading-6 `}                                    
+                                      placeholder="0.00"
+                                      onChange={handleretencionChange}
                                     />
-                                    {porcentajeIVAError && (
+                                    {retencionError && (
                                         <div className="text-xs text-justify bottom-0 left-0 p-2 text-red-500">
-                                          {porcentajeIVAError}
+                                          {retencionError}
                                       </div>
                                       )}
                                   </div>
                                 </div>
 
-                                
+                                <div className="sm:col-span-3">
+                                  <div className="flex items-center">
+                                  <label htmlFor="iva" className="block text-sm font-medium leading-6 text-gray-900 mr-1">
+                                    IVA
+                                  </label>
+                                  
+                                </div>
+                                  <div className="mt-2">
+                                    <input
+                                      type="text"
+                                      name="iva"
+                                      value={iva.toFixed(2)}
+                                      id="iva"
+                                      className={`block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ring-gray-300 bg-gray-200 font-bold
+                                      ${subtotalError || retencionError ? 'ring-red-300 focus:ring-red-300 ring-2' : 'ring-gray-300 focus:ring-indigo-600'}
+                                      `}                                      
+                                      disabled={true}
+                                    />
+                                  </div>
+                                </div>
+
+                                <div className="sm:col-span-3">
+                                  <div className="flex items-center">
+                                  <label htmlFor="importe" className="block text-sm font-medium leading-6 text-gray-900 mr-1">
+                                    Importe total
+                                  </label>
+
+                                </div>
+                                  <div className="mt-2">
+                                    <input 
+                                      type="text" 
+                                      name="importe" 
+                                      value={importe.toFixed(2)}
+                                      id="importe" 
+                                        className={`block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ring-gray-300 bg-indigo-200 font-bold
+                                        ${subtotalError || retencionError ? 'ring-red-300 focus:ring-red-300 ring-2' : 'ring-gray-300 focus:ring-indigo-600'}
+                                        `}
+                                      disabled={true}
+                                      />
+                                  </div>
+                                </div>
                               </div>
                               
                             </div>

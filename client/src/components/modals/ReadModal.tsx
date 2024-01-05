@@ -5,7 +5,7 @@ import { IoMdCloudDownload } from "react-icons/io";
 
 
 const ReadModal = (props: any) =>  {
-  const { numeroFactura, receptor, nombreProveedor, creador, importeFactura, porcentajeIVA, fecha, tipoCuenta } = props;
+  const { numeroFactura, receptor, nombreProveedor, creador, subtotal, retencion, fecha, tipoCuenta } = props;
 
   function descargarRegistro() {
     console.log('Descargando registro...');
@@ -13,8 +13,8 @@ const ReadModal = (props: any) =>  {
     console.log('Receptor: ' + receptor);
     console.log('Nombre del proveedor: ' + nombreProveedor);
     console.log('Creador: ' + creador);
-    console.log('Importe: ' + importeFactura);
-    console.log('IVA: ' + porcentajeIVA);
+    console.log('Importe: ' + subtotal);
+    console.log('IVA: ' + retencion);
     console.log('Fecha: ' + fecha);
     console.log('Tipo de cuenta: ' + tipoCuenta);
   }
@@ -99,14 +99,14 @@ const ReadModal = (props: any) =>  {
                                   <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
                                     Importe ($)
                                   </label>
-                                    <p className='font-bold text-sm'>{importeFactura}</p>
+                                    <p className='font-bold text-sm'>{subtotal}</p>
                                 </div>
 
                                 <div className="sm:col-span-3">
                                   <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
                                     IVA (%)
                                   </label>
-                                    <p className='font-bold text-sm'>{porcentajeIVA}</p>
+                                    <p className='font-bold text-sm'>{retencion}</p>
                                 </div>
 
                                 <div className="sm:col-span-3">

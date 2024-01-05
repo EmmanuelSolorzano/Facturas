@@ -115,8 +115,8 @@ export default function LandingPage() {
                   <button className="bg-red-600 text-white py-1 px-2 rounded" onClick={() => handleDeleteButtonClick(item.id)}>
                     Eliminar
                   </button>
-                  <ReadModal id={index} numeroFactura={item.numeroFactura} receptor={item.receptor} nombreProveedor={item.nombreProveedor} creador={item.creador} importeFactura={item.importeFactura} porcentajeIVA={item.porcentajeIVA} fecha={item.fecha} tipoCuenta={item.tipoCuenta} showModal={(readModalId === item.id) && showReadModal} setShowModal={setShowReadModal}/>
-                  <UpdateModal id={index} numeroFactura={item.numeroFactura} receptor={item.receptor} nombreProveedor={item.nombreProveedor} creador={item.creador} importeFactura={item.importeFactura} porcentajeIVA={item.porcentajeIVA} fecha={item.fecha} tipoCuenta={item.tipoCuenta} showModal={(updateModalId === item.id) && showUpdateModal} setShowModal={setShowUpdateModal}/>
+                  <ReadModal id={index} numeroFactura={item.numeroFactura} receptor={item.receptor} nombreProveedor={item.nombreProveedor} creador={item.creador} subtotal={item.subtotal} retencion={item.retencion} fecha={item.fecha} tipoCuenta={item.tipoCuenta} showModal={(readModalId === item.id) && showReadModal} setShowModal={setShowReadModal}/>
+                  <UpdateModal id={index} numeroFactura={item.numeroFactura} receptor={item.receptor} nombreProveedor={item.nombreProveedor} creador={item.creador} subtotal={item.subtotal} retencion={item.retencion} fecha={item.fecha} tipoCuenta={item.tipoCuenta} showModal={(updateModalId === item.id) && showUpdateModal} setShowModal={setShowUpdateModal}/>
                   <DeleteModal id={index} showModal={(deleteModalId === item.id) && showDeleteModal} setShowModal={setShowDeleteModal} idFactura={item.id} data={currentData} setData={setCurrentData} apiData={data} setApiData={setData}/>
                 </td>
               </tr>
