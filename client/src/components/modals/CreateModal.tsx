@@ -238,7 +238,7 @@ const CreateModal = (props: any) =>  {
                                       id="numero"
                                       className={`block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
                                         numeroFacturaError ? 'ring-red-300 focus:ring-red-300' : 'ring-gray-300 focus:ring-indigo-600'
-                                      }`}                                      
+                                      }`}                                     
                                       onChange={handleNumeroFacturaChange}
                                     />
                                     {numeroFacturaError && (
