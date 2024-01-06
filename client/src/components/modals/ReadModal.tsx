@@ -7,6 +7,10 @@ import { IoMdCloudDownload } from "react-icons/io";
 const ReadModal = (props: any) =>  {
   const { numeroFactura, receptor, nombreProveedor, creador, subtotal, retencion, fecha, tipoCuenta } = props;
 
+  const iva = subtotal * 0.16;
+
+  const importeTotal = subtotal + iva - retencion;
+
   function descargarRegistro() {
     console.log('Descargando registro...');
     console.log('Número de factura: ' + numeroFactura);
@@ -97,16 +101,30 @@ const ReadModal = (props: any) =>  {
 
                                 <div className="sm:col-span-3">
                                   <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
-                                    Importe ($)
+                                    Subtotal
                                   </label>
                                     <p className='font-bold text-sm'>{subtotal}</p>
                                 </div>
 
                                 <div className="sm:col-span-3">
                                   <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
-                                    IVA (%)
+                                    Retención
                                   </label>
                                     <p className='font-bold text-sm'>{retencion}</p>
+                                </div>
+
+                                <div className="sm:col-span-3">
+                                  <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
+                                    IVA
+                                  </label>
+                                    <p className='font-bold text-sm'>{iva}</p>
+                                </div>
+
+                                <div className="sm:col-span-3">
+                                  <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
+                                    Importe total
+                                  </label>
+                                    <p className='font-bold text-sm'>{importeTotal}</p>
                                 </div>
 
                                 <div className="sm:col-span-3">

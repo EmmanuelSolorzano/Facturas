@@ -58,6 +58,14 @@ const UpdateModal = (props: any) =>  {
     }, {} as Record<string, any>);
     setChangesPost(formattedChanges);
     console.log("Cambios: ", formattedChanges);
+    props.successTtl('Registro actualizado');
+    props.successMsg(<>El registro se ha <strong>actualizado</strong> con éxito.</>);
+    handleCloseModal();
+    props.loading(true);
+    setTimeout(() => {
+      props.loading(false);
+      props.success(true);
+    }, 3000);
   }
 
   useEffect(() => {

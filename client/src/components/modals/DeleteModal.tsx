@@ -12,8 +12,15 @@ const DeleteModal = (props: any) =>  {
 
     const updatedApiData = apiData.filter((registro: { id: any; }) => registro.id !== idFactura);
     setApiData(updatedApiData);
-  
+
+    props.successTtl('Registro eliminado');
+    props.successMsg(<>El registro se ha <strong>eliminado</strong> con éxito.</>);
     setShowModal(false);
+    props.loading(true);
+    setTimeout(() => {
+      props.loading(false);
+      props.success(true);
+    }, 3000);
   }
 
   const cancelButtonRef = useRef(null)

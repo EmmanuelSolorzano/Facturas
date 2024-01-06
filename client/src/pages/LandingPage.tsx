@@ -9,16 +9,22 @@ import DeleteModal from "../components/modals/DeleteModal";
 import dataArray from "./data/data";
 import { FaAngleLeft } from "react-icons/fa";
 import { FaAngleRight } from "react-icons/fa";
+import SuccessModal from "../components/modals/SuccessModal";
+import FailureModal from "../components/modals/FailureModal";
+import Loading from "../components/Loading";
 
 export default function LandingPage() {
   const [user, setUser] = useState<User | null>(null);
   const [loaded, setLoaded] = useState(false);
+  const [loading, setLoading] = useState(false);
   
   //Modals
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showReadModal, setShowReadModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showFailureModal, setShowFailureModal] = useState(false);
   const [deleteModalId, setDeleteModalId] = useState(null);
   const [readModalId, setReadModalId] = useState(null);
   const [updateModalId, setUpdateModalId] = useState(null);
@@ -41,6 +47,9 @@ export default function LandingPage() {
     setDeleteModalId(id);
     setShowDeleteModal(true);
   };
+
+  const [successMessage, setSuccessMessage] = useState('');
+  const [successTitle, setSuccessTitle] = useState('');
 
   //Pagination
   const [data, setData] = useState(dataArray);
@@ -74,9 +83,12 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div className={`bg-white min-h-screen ${!loaded ? 'hidden' : ''}`}>
+    <div className={`bg-white min-h-screen ${!loaded ? 'hidden' : ''} `}>
+      <Loading loading={loading}/>
       <NavBar />
-      <CreateModal showModal={showCreateModal} setShowModal={setShowCreateModal}/>
+      <SuccessModal showModal={showSuccessModal} setShowModal={setShowSuccessModal} msg={successMessage} title={successTitle}/>
+      <FailureModal showModal={showFailureModal} setShowModal={setShowFailureModal}/>
+      <CreateModal showModal={showCreateModal} setShowModal={setShowCreateModal} success={setShowSuccessModal} error={setShowFailureModal} successMsg={setSuccessMessage} successTtl={setSuccessTitle} loading={setLoading}/>
       <div className="container mx-auto p-8 mt-8 pl-0 pr-0">
         <h1 className="text-4xl font-bold mb-8 text-black">Registros</h1>
         
@@ -115,9 +127,9 @@ export default function LandingPage() {
                   <button className="bg-red-600 text-white py-1 px-2 rounded" onClick={() => handleDeleteButtonClick(item.id)}>
                     Eliminar
                   </button>
-                  <ReadModal id={index} numeroFactura={item.numeroFactura} receptor={item.receptor} nombreProveedor={item.nombreProveedor} creador={item.creador} subtotal={item.subtotal} retencion={item.retencion} fecha={item.fecha} tipoCuenta={item.tipoCuenta} showModal={(readModalId === item.id) && showReadModal} setShowModal={setShowReadModal}/>
-                  <UpdateModal id={index} numeroFactura={item.numeroFactura} receptor={item.receptor} nombreProveedor={item.nombreProveedor} creador={item.creador} subtotal={item.subtotal} retencion={item.retencion} fecha={item.fecha} tipoCuenta={item.tipoCuenta} showModal={(updateModalId === item.id) && showUpdateModal} setShowModal={setShowUpdateModal}/>
-                  <DeleteModal id={index} showModal={(deleteModalId === item.id) && showDeleteModal} setShowModal={setShowDeleteModal} idFactura={item.id} data={currentData} setData={setCurrentData} apiData={data} setApiData={setData}/>
+                  <ReadModal id={index} numeroFactura={item.numeroFactura} receptor={item.receptor} nombreProveedor={item.nombreProveedor} creador={item.creador} subtotal={item.subtotal} retencion={item.retencion} fecha={item.fecha} tipoCuenta={item.tipoCuenta} showModal={(readModalId === item.id) && showReadModal} setShowModal={setShowReadModal} loading={setLoading}/>
+                  <UpdateModal id={index} numeroFactura={item.numeroFactura} receptor={item.receptor} nombreProveedor={item.nombreProveedor} creador={item.creador} subtotal={item.subtotal} retencion={item.retencion} fecha={item.fecha} tipoCuenta={item.tipoCuenta} showModal={(updateModalId === item.id) && showUpdateModal} setShowModal={setShowUpdateModal} success={setShowSuccessModal} error={setShowFailureModal} successMsg={setSuccessMessage} successTtl={setSuccessTitle} loading={setLoading}/>
+                  <DeleteModal id={index} showModal={(deleteModalId === item.id) && showDeleteModal} setShowModal={setShowDeleteModal} idFactura={item.id} data={currentData} setData={setCurrentData} apiData={data} setApiData={setData} success={setShowSuccessModal} error={setShowFailureModal} successMsg={setSuccessMessage} successTtl={setSuccessTitle} loading={setLoading}/>
                 </td>
               </tr>
             ))}
@@ -160,6 +172,5 @@ export default function LandingPage() {
         </div>
         }
     </div>
-          
   );
 }

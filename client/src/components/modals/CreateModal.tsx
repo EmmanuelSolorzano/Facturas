@@ -3,7 +3,6 @@ import { Dialog, Transition } from '@headlessui/react'
 import { IoIosAddCircle } from "react-icons/io";
 import ReceptorDropdown from './utils/ReceptorDropdown';
 import AutocompleteCustom from '../Autocomplete';
-import { parse } from 'path';
 
 const CreateModal = (props: any) =>  {
 
@@ -27,7 +26,15 @@ const CreateModal = (props: any) =>  {
     console.log("Tipo de cuenta: ", tipoCuentaPost);
     console.log("IVA: ", iva);
     console.log("Importe: ", importe);
-    console.log("--------------------")
+    console.log("--------------------");
+    props.successTtl('Registro creado');
+    props.successMsg(<>El registro se ha <strong>creado</strong> con éxito.</>);
+    handleCloseModal();
+    props.loading(true);
+    setTimeout(() => {
+      props.loading(false);
+      props.success(true);
+    }, 3000);
   }
 
   function handleCloseModal() {
