@@ -43,13 +43,15 @@ const CreateModal = (props: any) =>  {
     setReceptorPost("");
     setNombreProveedorPost("");
     setsubtotalPost(0);
-    setretencionPost(16);
+    setretencionPost(0);
     setTipoCuentaPost("");
     setReceptorError(null);
     setNumeroFacturaError(null);
     setNombreProveedorError(null);
     setsubtotalError(null);
     setretencionError(null);
+    setIva(0);
+    setImporte(0);
   };
 
   //REGEX Validation

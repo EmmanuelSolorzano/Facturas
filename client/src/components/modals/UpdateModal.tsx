@@ -23,6 +23,8 @@ const UpdateModal = (props: any) =>  {
     setNombreProveedorError(null);
     setsubtotalError(null);
     setretencionError(null);
+    setIva(subtotal * 0.16);
+    setImporte(subtotal - retencion + (subtotal * 0.16));
     setChanges([]);
     setChangesPost({});
   };
